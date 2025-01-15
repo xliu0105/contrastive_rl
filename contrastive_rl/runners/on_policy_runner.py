@@ -6,6 +6,7 @@ from __future__ import annotations
 import os
 import statistics
 import time
+from rich.console import Console
 import torch
 from collections import deque
 from torch.utils.tensorboard import SummaryWriter as TensorboardSummaryWriter
@@ -15,8 +16,6 @@ from contrastive_rl.algorithms import PPOContrastive
 from contrastive_rl.env import VecEnv # IMPORTANT: rsl-rl使用的是自己定义的VecEnv类格式，必须要按照VecEnv的接口来实现自己的环境类
 from contrastive_rl.modules import ActorCriticContrastive, EmpiricalNormalization
 from contrastive_rl.utils import store_code_state
-from rich import print as rprint
-
 
 class OnPolicyRunner:
     """On-policy runner for training and evaluation."""
@@ -71,9 +70,10 @@ class OnPolicyRunner:
         self.git_status_repos = [contrastive_rl.__file__]
 
         # Terminal Output
-        rprint("[green]=======================================================[/green]")
-        rprint("[purple]You are using contrastive_rl, happy training.[/purple]")
-        rprint("[green]=======================================================[/green]")
+        console = Console()
+        console.print("[green]==================================================================================[/green]")
+        console.print("              \U0001F680 [purple]You are using contrastive_rl, happy training.[/purple]")
+        console.print("[green]==================================================================================[/green]")
 
     # MODIFIED: 这个learn函数我做了修改，添加了only_positive_rewards参数，如果设置为True，那么只有正的reward才会被记录，负的reward会被clip成0
     def learn(self, num_learning_iterations: int, init_at_random_ep_len: bool = False, only_positive_rewards: bool = False):

@@ -1,14 +1,15 @@
+# The parameters marked as (contrastive_rl) are additional parameters than rsl_rl.
 algorithm:
-  class_name: PPOContrastive  # Only PPOContrastive is supported in this package
+  class_name: PPOContrastive  # (contrastive_rl) Only PPOContrastive is supported in this package
   # training parameters
   # -- value function
   value_loss_coef: 1.0
   clip_param: 0.2
   use_clipped_value_loss: true
   # -- Contrastive learning related cofficients(Optional)
-  barlowtwins_loss_coef: 2.0
-  barlowtwins_lambda: 0.005
-  encoder_output_loss_coef: 0.00005
+  barlowtwins_loss_coef: 2.0  # (contrastive_rl)
+  barlowtwins_lambda: 0.005  # (contrastive_rl)
+  encoder_output_loss_coef: 0.00005  # (contrastive_rl)
   # -- surrogate loss
   desired_kl: 0.01
   entropy_coef: 0.01
@@ -21,13 +22,13 @@ algorithm:
   num_mini_batches: 4  # mini batch size = num_envs * num_steps / num_mini_batches
   schedule: adaptive  # adaptive, fixed
 policy:
-  class_name: ActorCriticContrastive  # Only ActorCriticContrastive is supported in this package
+  class_name: ActorCriticContrastive  # (contrastive_rl) Only ActorCriticContrastive is supported in this package
   # for MLP i.e. `ActorCritic`
   activation: elu
   actor_hidden_dims: [128, 128, 128]
   critic_hidden_dims: [128, 128, 128]
-  encoder_hidden_dims: [128, 128, 128]  # The hidden dims of encoder
-  env_vector_dims: 100  # The output vector dims of encoder
+  encoder_hidden_dims: [128, 128, 128]  # (contrastive_rl) The hidden dims of encoder
+  env_vector_dims: 100  # (contrastive_rl) The output vector dims of encoder
   init_noise_std: 1.0
   # only needed for `ActorCriticRecurrent`
   # rnn_type: 'lstm'
