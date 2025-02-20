@@ -31,7 +31,8 @@ class WandbSummaryWriter(SummaryWriter):
                 "Wandb username not found. Please run or add to ~/.bashrc: export WANDB_USERNAME=YOUR_USERNAME"
             )
 
-        wandb.init(project=project, entity=entity)
+        # wandb.init(project=project, entity=entity)
+        wandb.init(project=project)
 
         # Change generated name to project-number format
         wandb.run.name = project + wandb.run.name.split("-")[-1]

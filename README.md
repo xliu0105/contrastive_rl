@@ -17,6 +17,8 @@ pip install -e .
 ```
 The usage of this package is exactly the same as the `rsl_rl`. You only need to replace `rsl_rl` with `contrastive_rl` in `from rsl_rl.runners import OnPolicyRunner`.
 
+This package offers a config file in `cli_args` folder, 
+
 This package refers to the paper: 
 - Hybrid Internal Model: Learning Agile Legged Locomotion with Simulated Robot Response, DOI: 10.48550/ARXIV.2312.11460
 - Barlow Twins: Self-Supervised Learning via Redundancy Reduction, DOI: 10.48550/ARXIV.2103.03230

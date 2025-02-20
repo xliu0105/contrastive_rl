@@ -35,6 +35,7 @@ class OnPolicyRunner:
             num_critic_obs = num_obs
         # eval接收一个字符串，并执行这个字符串代表的表达式，如eval("ActorCritic")就是要生成一个ActorCritic类的执行对象
         actor_critic_class = eval(self.policy_cfg.pop("class_name"))  # ActorCritic
+        print("policy_cfg: ", self.policy_cfg)
         actor_critic: ActorCriticContrastive = actor_critic_class(
             num_obs, num_critic_obs, self.env.num_actions, **self.policy_cfg
         ).to(self.device) # 注意最后的to(self.device)是将actor_critic的参数放到device上，默认是cpu，但一般是cuda
@@ -71,9 +72,9 @@ class OnPolicyRunner:
         self.git_status_repos = [contrastive_rl.__file__]
 
         # Terminal Output
-        rprint("[green]=======================================================[/green]")
+        rprint("[green]==============================================[/green]")
         rprint("[purple]You are using contrastive_rl, happy training.[/purple]")
-        rprint("[green]=======================================================[/green]")
+        rprint("[green]==============================================[/green]")
 
     # MODIFIED: 这个learn函数我做了修改，添加了only_positive_rewards参数，如果设置为True，那么只有正的reward才会被记录，负的reward会被clip成0
     def learn(self, num_learning_iterations: int, init_at_random_ep_len: bool = False, only_positive_rewards: bool = False):
